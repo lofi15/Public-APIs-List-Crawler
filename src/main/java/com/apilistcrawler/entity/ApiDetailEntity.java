@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "api_details")
 public class ApiDetailEntity {
 
     @Id

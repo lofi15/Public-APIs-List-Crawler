@@ -1,11 +1,13 @@
 package com.apilistcrawler.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "api_categories")
 public class ApiCategoryEntity {
 
+    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer categoryId;
 
     @Id
