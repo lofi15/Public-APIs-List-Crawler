@@ -1,5 +1,6 @@
 package com.apilistcrawler.service;
 
+import com.apilistcrawler.entity.ApiDetailEntity;
 import com.apilistcrawler.repository.ApiDetailsRepository;
 import com.apilistcrawler.response.AccessToken;
 import com.apilistcrawler.response.ApiDetailsResponse;
@@ -20,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class ApiDetailService {
@@ -101,12 +103,18 @@ public class ApiDetailService {
 
         }while(responseOnEachCall.getCategories().size() !=0 );
 
-        System.out.println("final response :");
-        System.out.println(apiDetails);
+//        System.out.println("final response :");
+//        System.out.println(apiDetails);
 
         return apiDetails;
 
     }
+
+    public void saveApiDetailsList(List<ApiDetailEntity> apiDetailEntityList){
+            apiDetailsRepository.saveAll(apiDetailEntityList);
+    }
+
+
 
 
 }
