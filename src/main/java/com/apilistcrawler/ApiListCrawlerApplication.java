@@ -40,11 +40,6 @@ public class ApiListCrawlerApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
-
-        System.out.println("start");
-        //ApiDetailsResponse response = apiDetailService.getAllApiDetails("Art & Design");
         crawlerService.crawlData();
-        System.out.println("finished !!!");
-
     }
 }
