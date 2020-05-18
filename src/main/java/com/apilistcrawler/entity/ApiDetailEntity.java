@@ -3,14 +3,17 @@ package com.apilistcrawler.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "api_details")
 public class ApiDetailEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     private Integer categoryId;
 
     @JsonProperty(value="API")
@@ -35,6 +38,8 @@ public class ApiDetailEntity {
 
     @JsonProperty(value="Link")
     private String link;
+
+
 
     public Integer getCategoryId() {
         return categoryId;

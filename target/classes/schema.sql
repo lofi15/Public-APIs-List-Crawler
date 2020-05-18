@@ -1,12 +1,13 @@
 
 CREATE TABLE api_categories(
-    category_id serial NOT NULL,
-    category_name VARCHAR (256) PRIMARY KEY
+    id serial PRIMARY KEY,
+    category_name VARCHAR (256)
 );
 
 CREATE TABLE api_details(
 
-    category_id int NOT NULL PRIMARY KEY ,
+    id serial PRIMARY KEY,
+    category_id int NOT NULL REFERENCES api_categories(id),
     api_name VARCHAR (256),
     description VARCHAR (256),
     auth VARCHAR (256),
@@ -23,3 +24,6 @@ CREATE TABLE api_details(
 --       "Category": "Animals"
 
 );
+
+ALTER TABLE api_details
+   ADD FOREIGN KEY (category_id) REFERENCES api_categories (id);

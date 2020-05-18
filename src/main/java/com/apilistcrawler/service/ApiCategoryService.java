@@ -1,5 +1,6 @@
 package com.apilistcrawler.service;
 
+import com.apilistcrawler.entity.ApiCategoryEntity;
 import com.apilistcrawler.repository.ApiCategoryRepository;
 import com.apilistcrawler.response.AccessToken;
 import com.apilistcrawler.response.CategoriesResponse;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class ApiCategoryService {
@@ -56,11 +58,11 @@ public class ApiCategoryService {
                 responseEntity = restTemplate.
                                   exchange(uriBuilder.build().encode().toUri(), HttpMethod.GET,reqEntity,CategoriesResponse.class);
 
-                System.out.println("api call made, response :"+responseEntity.getBody().toString());
+                //System.out.println("api call made, response :"+responseEntity.getBody().toString());
 
 
             }catch (HttpClientErrorException.TooManyRequests exception){
-                System.out.println("sleeping");
+                //System.out.println("sleeping");
                 try {
                     Thread.sleep(60000);
                     continue;
@@ -82,6 +84,16 @@ public class ApiCategoryService {
         return categoriesResponse;
 
     }
+
+    public void saveApiCategories(List<ApiCategoryEntity> apiCategoryEntityList){
+
+        apiCategoryRepository.saveAll(apiCategoryEntityList);
+
+    }
+
+
+
+
 
 
 

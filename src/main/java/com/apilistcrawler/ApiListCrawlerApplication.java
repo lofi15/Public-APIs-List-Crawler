@@ -5,6 +5,7 @@ import com.apilistcrawler.response.ApiDetailsResponse;
 import com.apilistcrawler.response.CategoriesResponse;
 import com.apilistcrawler.service.ApiCategoryService;
 import com.apilistcrawler.service.ApiDetailService;
+import com.apilistcrawler.service.CrawlerService;
 import com.apilistcrawler.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -21,15 +22,16 @@ public class ApiListCrawlerApplication {
     public RestTemplate getRestTempplate(){
         return new RestTemplate();
     }
+//    @Autowired
+//    TokenService tokenService;
+//
+//    @Autowired
+//    private ApiCategoryService apiCategoryService;
+//
+//    @Autowired
+//    private ApiDetailService apiDetailService;
     @Autowired
-    TokenService tokenService;
-
-    @Autowired
-    private ApiCategoryService apiCategoryService;
-
-    @Autowired
-    private ApiDetailService apiDetailService;
-
+    private CrawlerService crawlerService;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiListCrawlerApplication.class, args);
@@ -39,11 +41,9 @@ public class ApiListCrawlerApplication {
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
 
-//        System.out.println("call Made");
-//        CategoriesResponse categoriesResponse = apiCategoryService.getAllApiCategories();
-//        System.out.println("response received !!");
         System.out.println("start");
-        ApiDetailsResponse response = apiDetailService.getAllApiDetails("Art & Design");
+        //ApiDetailsResponse response = apiDetailService.getAllApiDetails("Art & Design");
+        crawlerService.crawlData();
         System.out.println("finished !!!");
 
     }
