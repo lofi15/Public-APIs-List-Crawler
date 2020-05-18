@@ -41,7 +41,6 @@ public class ApiCategoryService {
 
         AccessToken accessToken = tokenService.getAuthToken();
 
-        //AccessToken accessToken =
         do{
             UriComponentsBuilder uriBuilder =  UriComponentsBuilder.fromHttpUrl(categoriesUrl);
             uriBuilder.queryParam("page",page);
@@ -51,7 +50,6 @@ public class ApiCategoryService {
                     System.out.println("token became invlaid fetching new one :");
                     accessToken = tokenService.getAuthToken();
                 }
-
                 headers.put("Authorization", Arrays.asList(String.valueOf("Bearer ")+accessToken.getToken()));
                 HttpEntity<String> reqEntity = new HttpEntity<String>("parameters", headers);
 
@@ -71,15 +69,13 @@ public class ApiCategoryService {
                     break;
                 }
             }
-//            System.out.println("currPage :"+page);
+
             responseOnEachCall = (CategoriesResponse) responseEntity.getBody();
             categoriesResponse.getCategories().addAll(responseOnEachCall.getCategories());
             categoriesResponse.setCount(responseOnEachCall.getCount());
             page++;
 
         }while(responseOnEachCall.getCategories().size() !=0 );
-
-//        System.out.println(categoriesResponse);
 
         return categoriesResponse;
 

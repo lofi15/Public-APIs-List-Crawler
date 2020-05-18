@@ -4,6 +4,8 @@ import com.apilistcrawler.entity.ApiCategoryEntity;
 import com.apilistcrawler.entity.ApiDetailEntity;
 import com.apilistcrawler.response.ApiDetailsResponse;
 import com.apilistcrawler.response.CategoriesResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,11 @@ public class CrawlerService {
     @Autowired
     private ApiDetailService apiDetailService;
 
+    public static final Logger logger = LoggerFactory.getLogger(CrawlerService.class);
 
     public void crawlData(){
 
+        logger.info("fetching all categories");
         CategoriesResponse allCategories = apiCategoryService.getAllApiCategories();
 
         List<ApiCategoryEntity> apiCategoryEntityList = new ArrayList<>();
@@ -29,9 +33,10 @@ public class CrawlerService {
         allCategories.getCategories().stream().forEach(c->{
             apiCategoryEntityList.add(new ApiCategoryEntity(c));
         } );
-
+        logger.info("saving all categories");
         apiCategoryService.saveApiCategories(apiCategoryEntityList);
 
+        logger.info("fetching and saving all apiDetails");
         apiCategoryEntityList.stream().forEach((apiCategoryEntity)->{
             ApiDetailsResponse response = apiDetailService.
                     getAllApiDetails(apiCategoryEntity.getCategoryName());

@@ -29,9 +29,6 @@ public class AccessToken {
     }
 
     public boolean isValid(){
-        System.out.println("currTime :"+ LocalDateTime.now());
-        System.out.println("expirationDateAndTime :"+ expirationDateAndTime);
-
         return LocalDateTime.now().isBefore(expirationDateAndTime);
     }
 
