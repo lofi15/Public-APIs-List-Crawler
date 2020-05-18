@@ -7,7 +7,7 @@ CREATE TABLE api_categories(
 CREATE TABLE api_details(
 
     id serial PRIMARY KEY,
-    category_id int NOT NULL REFERENCES api_categories(id),
+    category_id int NOT NULL,
     api_name VARCHAR (256),
     description VARCHAR (256),
     auth VARCHAR (256),

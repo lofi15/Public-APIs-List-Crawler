@@ -57,7 +57,7 @@ public class ApiCategoryService {
                                   exchange(uriBuilder.build().encode().toUri(), HttpMethod.GET,reqEntity,CategoriesResponse.class);
 
                 //System.out.println("api call made, response :"+responseEntity.getBody().toString());
-
+                //issue : if there is exception in first time then handle that case !?
 
             }catch (HttpClientErrorException.TooManyRequests exception){
                 //System.out.println("sleeping");
@@ -75,7 +75,7 @@ public class ApiCategoryService {
             categoriesResponse.setCount(responseOnEachCall.getCount());
             page++;
 
-        }while(responseOnEachCall.getCategories().size() !=0 );
+        }while(categoriesResponse.getCategories().size() < categoriesResponse.getCount() );
 
         return categoriesResponse;
 

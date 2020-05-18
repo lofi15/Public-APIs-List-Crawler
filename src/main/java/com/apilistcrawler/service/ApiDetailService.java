@@ -85,7 +85,7 @@ public class ApiDetailService {
 
 
             }catch (HttpClientErrorException.TooManyRequests exception){
-                System.out.println("sleeping");
+                //System.out.println("sleeping");
                 try {
                     Thread.sleep(60000);
                     continue;
@@ -101,7 +101,7 @@ public class ApiDetailService {
             apiDetails.setCount(responseOnEachCall.getCount());
             page++;
 
-        }while(responseOnEachCall.getCategories().size() !=0 );
+        }while(apiDetails.getCategories().size() < apiDetails.getCount());
 
 //        System.out.println("final response :");
 //        System.out.println(apiDetails);
