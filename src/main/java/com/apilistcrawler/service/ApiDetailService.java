@@ -5,6 +5,7 @@ import com.apilistcrawler.repository.ApiDetailsRepository;
 import com.apilistcrawler.response.AccessToken;
 import com.apilistcrawler.response.ApiDetailsResponse;
 import com.apilistcrawler.response.CategoriesResponse;
+import com.apilistcrawler.sender.RequestSender;
 import org.apache.tomcat.util.buf.Utf8Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +31,7 @@ public class ApiDetailService {
     private ApiDetailsRepository apiDetailsRepository;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private RequestSender requestSender;
 
     @Autowired
     private TokenService tokenService;
@@ -64,47 +65,33 @@ public class ApiDetailService {
             UriComponentsBuilder uriBuilder =  UriComponentsBuilder.fromHttpUrl(categoryDetailsUrl);
             uriBuilder.queryParam("category",category);
             uriBuilder.queryParam("page",page);
-//            System.out.println(currUrl);
 
-//            System.out.println("url :"+builder.build().encode().toString());
-            try{
-                HttpHeaders headers =new HttpHeaders();
-                if(!accessToken.isValid()){
-                    System.out.println("token became invlaid, fetching new one :");
-                    accessToken = tokenService.getAuthToken();
-                }
-                headers.add("Authorization", String.valueOf("Bearer ")+accessToken.getToken());
-                HttpEntity<String> reqEntity = new HttpEntity<String>("parameters", headers);
-
-                //System.out.println(uriBuilder.build().encode().toUri());
-
-                responseEntity = restTemplate.
-                        exchange(uriBuilder.build().encode().toUri(),HttpMethod.GET,reqEntity,ApiDetailsResponse.class);
-
-                //System.out.println("api call made, response :"+responseEntity.getBody().toString());
-
-
-            }catch (HttpClientErrorException.TooManyRequests exception){
-                System.out.println("sleeping");
-                try {
-                    Thread.sleep(60000);
-                    continue;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    break;
-                }
+            HttpHeaders headers =new HttpHeaders();
+            if(!accessToken.isValid()){
+                System.out.println("token became invlaid, fetching new one :");
+                accessToken = tokenService.getAuthToken();
             }
-//            System.out.println("currPage :"+page);
-//            System.out.println("response received :"+responseOnEachCall);
-            responseOnEachCall = (ApiDetailsResponse) responseEntity.getBody();
+
+            headers.add("Authorization", String.valueOf("Bearer ")+accessToken.getToken());
+            HttpEntity<String> reqEntity = new HttpEntity<String>("parameters", headers);
+
+            responseEntity = requestSender.
+                    exchange(uriBuilder.build().encode().toUri(),HttpMethod.GET,reqEntity,ApiDetailsResponse.class);
+
+            try {
+                responseOnEachCall = (ApiDetailsResponse) responseEntity.getBody();
+            }catch (Exception e){
+                e.printStackTrace();
+                break;
+            }
+
             apiDetails.getCategories().addAll(responseOnEachCall.getCategories());
             apiDetails.setCount(responseOnEachCall.getCount());
             page++;
 
-        }while(responseOnEachCall.getCategories().size() !=0 );
+        }while(apiDetails.getCategories().size() < apiDetails.getCount());
 
-//        System.out.println("final response :");
-//        System.out.println(apiDetails);
+
 
         return apiDetails;
 
