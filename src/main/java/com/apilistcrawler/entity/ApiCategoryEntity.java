@@ -1,15 +1,26 @@
 package com.apilistcrawler.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "api_categories")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiCategoryEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer categoryId;
 
-    @Id
     private String categoryName;
+
+    public ApiCategoryEntity(){
+    }
+
+    public ApiCategoryEntity(String category){
+        this.categoryName=category;
+    }
 
     public Integer getCategoryId() {
         return categoryId;

@@ -5,7 +5,10 @@ import com.apilistcrawler.response.ApiDetailsResponse;
 import com.apilistcrawler.response.CategoriesResponse;
 import com.apilistcrawler.service.ApiCategoryService;
 import com.apilistcrawler.service.ApiDetailService;
+import com.apilistcrawler.service.CrawlerService;
 import com.apilistcrawler.service.TokenService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,15 +24,11 @@ public class ApiListCrawlerApplication {
     public RestTemplate getRestTempplate(){
         return new RestTemplate();
     }
-    @Autowired
-    TokenService tokenService;
 
     @Autowired
-    private ApiCategoryService apiCategoryService;
+    private CrawlerService crawlerService;
 
-    @Autowired
-    private ApiDetailService apiDetailService;
-
+    private static final Logger logger = LoggerFactory.getLogger(ApiListCrawlerApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(ApiListCrawlerApplication.class, args);
@@ -38,13 +37,9 @@ public class ApiListCrawlerApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
-
-//        System.out.println("call Made");
-//        CategoriesResponse categoriesResponse = apiCategoryService.getAllApiCategories();
-//        System.out.println("response received !!");
-        System.out.println("start");
-        ApiDetailsResponse response = apiDetailService.getAllApiDetails("Art & Design");
-        System.out.println("finished !!!");
+        logger.info("crawling started !");
+        crawlerService.crawlData();
+        logger.info("crawling finished , data fechted !");
 
     }
 }
