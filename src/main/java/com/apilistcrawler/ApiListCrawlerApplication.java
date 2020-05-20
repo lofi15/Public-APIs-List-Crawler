@@ -24,12 +24,11 @@ public class ApiListCrawlerApplication {
     @Autowired
     private CrawlerService crawlerService;
 
-    private static ConfigurableApplicationContext configurableApplicationContext=null;
 
     private static final Logger logger = LoggerFactory.getLogger(ApiListCrawlerApplication.class);
 
     public static void main(String[] args) {
-        configurableApplicationContext=SpringApplication.run(ApiListCrawlerApplication.class, args);
+        SpringApplication.run(ApiListCrawlerApplication.class, args);
 
     }
 
