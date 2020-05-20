@@ -1,8 +1,5 @@
 
--- CREATE DATABASE apilist;
--- CREATE USER lofi WITH PASSWORD 'Postman';
--- GRANT ALL PRIVILEGES ON DATABASE apilist TO lofi;
--- connect apilist
+
 CREATE TABLE api_categories(
     id serial PRIMARY KEY,
     category_name VARCHAR (256)
@@ -18,14 +15,6 @@ CREATE TABLE api_details(
     https BOOLEAN,
     cors VARCHAR (5),
     link VARCHAR (256)
-
---       "API": "Cat Facts",
---       "Description": "Daily cat facts",
---       "Auth": "",
---       "HTTPS": true,
---       "Cors": "no",
---       "Link": "https://alexwohlbruck.github.io/cat-facts/",
---       "Category": "Animals"
 
 );
 

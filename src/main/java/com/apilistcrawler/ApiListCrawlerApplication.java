@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.client.RestTemplate;
@@ -28,10 +29,12 @@ public class ApiListCrawlerApplication {
     @Autowired
     private CrawlerService crawlerService;
 
+    private static ConfigurableApplicationContext configurableApplicationContext=null;
+
     private static final Logger logger = LoggerFactory.getLogger(ApiListCrawlerApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiListCrawlerApplication.class, args);
+        configurableApplicationContext=SpringApplication.run(ApiListCrawlerApplication.class, args);
 
     }
 
@@ -40,6 +43,7 @@ public class ApiListCrawlerApplication {
         logger.info("crawling started !");
         crawlerService.crawlData();
         logger.info("crawling finished , data fechted !");
+        configurableApplicationContext.close();
 
     }
 }
