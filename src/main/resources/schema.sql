@@ -1,4 +1,8 @@
 
+-- CREATE DATABASE apilist;
+-- CREATE USER lofi WITH PASSWORD 'Postman';
+-- GRANT ALL PRIVILEGES ON DATABASE apilist TO lofi;
+-- connect apilist
 CREATE TABLE api_categories(
     id serial PRIMARY KEY,
     category_name VARCHAR (256)
