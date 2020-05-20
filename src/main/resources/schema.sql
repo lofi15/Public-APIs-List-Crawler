@@ -1,4 +1,5 @@
 
+
 CREATE TABLE api_categories(
     id serial PRIMARY KEY,
     category_name VARCHAR (256)
@@ -14,14 +15,6 @@ CREATE TABLE api_details(
     https BOOLEAN,
     cors VARCHAR (5),
     link VARCHAR (256)
-
---       "API": "Cat Facts",
---       "Description": "Daily cat facts",
---       "Auth": "",
---       "HTTPS": true,
---       "Cors": "no",
---       "Link": "https://alexwohlbruck.github.io/cat-facts/",
---       "Category": "Animals"
 
 );
 
