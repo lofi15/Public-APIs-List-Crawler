@@ -1,12 +1,7 @@
 package com.apilistcrawler;
 
-import com.apilistcrawler.response.AccessToken;
-import com.apilistcrawler.response.ApiDetailsResponse;
-import com.apilistcrawler.response.CategoriesResponse;
-import com.apilistcrawler.service.ApiCategoryService;
-import com.apilistcrawler.service.ApiDetailService;
+
 import com.apilistcrawler.service.CrawlerService;
-import com.apilistcrawler.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +38,5 @@ public class ApiListCrawlerApplication {
         logger.info("crawling started !");
         crawlerService.crawlData();
         logger.info("crawling finished , data fechted !");
-        configurableApplicationContext.close();
-
     }
 }
