@@ -6,7 +6,7 @@
 
 
 # Steps to follow
-  1. Clone proejct
+  1. Clone project
   2. navigate into project directory
   3. execute following commands
 ```sh
@@ -16,7 +16,7 @@ $ sudo docker run -p 5433:5432 --name postgres -e POSTGRES_PASSWORD=postgres -d 
 $ sudo docker build ./ -t webcrawlerapp
 $ sudo docker-compose up
 ```
-4. The crawler is up and running, to check the data fetched, have to look inside the db container.
+4. The crawler is up and running, to check the data fetched, have to go look inside the db container.
 5. To access db container: get the container id using :
  ```sh
  $ docker ps -a
