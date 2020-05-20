@@ -12,7 +12,6 @@
 ```sh
 $ mvn package
 $ sudo docker create -v /var/lib/postgresql/data --name PostgresData alpine 
-$ sudo docker run -p 5433:5432 --name postgres -e POSTGRES_PASSWORD=postgres -d --volumes-from PostgresData postgres
 $ sudo docker build ./ -t webcrawlerapp
 $ sudo docker-compose up
 ```
