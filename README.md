@@ -10,7 +10,7 @@
   2. navigate into project directory
   3. execute following commands
 ```sh
-$ mvn package
+$ mvn package -DskipTests
 $ sudo docker create -v /var/lib/postgresql/data --name PostgresData alpine 
 $ sudo docker build ./ -t webcrawlerapp
 $ sudo docker-compose up
