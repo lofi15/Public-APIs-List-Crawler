@@ -30,7 +30,7 @@ public class ApiCategoryService {
     private TokenService tokenService;
 
     @Value("${categories.url}")
-    String categoriesUrl;
+    private String categoriesUrl;
 
     public CategoriesResponse getAllApiCategories(){
 
