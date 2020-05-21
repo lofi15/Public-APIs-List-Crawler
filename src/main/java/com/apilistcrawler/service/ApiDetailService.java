@@ -37,7 +37,7 @@ public class ApiDetailService {
     private TokenService tokenService;
 
     @Value("${category.details.url}")
-    String categoryDetailsUrl;
+    private String categoryDetailsUrl;
 
 //    private String encodeValue(String value) {
 //        try {
@@ -68,7 +68,7 @@ public class ApiDetailService {
 
             HttpHeaders headers =new HttpHeaders();
             if(!accessToken.isValid()){
-                System.out.println("token became invlaid, fetching new one :");
+                //System.out.println("token became invlaid, fetching new one :");
                 accessToken = tokenService.getAuthToken();
             }
 
